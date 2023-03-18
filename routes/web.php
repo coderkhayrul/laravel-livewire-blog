@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -27,4 +28,10 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+});
+
+Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
+    Route::get('/admin/post', function (){
+        return view('dashboard');
+    })->name('post.index');
 });
